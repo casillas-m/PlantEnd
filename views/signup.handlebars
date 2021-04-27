@@ -1,32 +1,43 @@
-<div class="center">
-    <div class="container">
-        <div class="text">
-            Sign up</div>
-        <form action="#">
-            <div class="data">
-                {{!-- <label>Email or Phone</label> --}}
-                <input type="text" placeholder="Name" id="name" required>
-            </div>
-            <div class="data">
-                {{!-- <label>Email or Phone</label> --}}
-                <input type="email" placeholder="Email" id="email" required>
-            </div>
-            <div class="data">
-                {{!-- <label>Password</label> --}}
-                <input type="password" placeholder="Password" id="pass" required>
-            </div>
-            <div class="data">
-                {{!-- <label>Password</label> --}}
-                <input type="password" placeholder="Confirm password" id="confirm" required>
-            </div>
+<div class="mainlogin">
+    <div class="center">
+        <div class="container">
+            <div class="text">
+                Sign up</div>
+            <form action="#">
+                <div class="data">
+                    {{!-- <label>Email or Phone</label> --}}
+                    <input type="text" placeholder="Name" id="name" required>
+                </div>
+                <div class="data">
+                    {{!-- <label>Email or Phone</label> --}}
+                    <input type="email" placeholder="Email" id="email" required>
+                </div>
+                <div class="data">
+                    {{!-- <label>Password</label> --}}
+                    <input type="password" placeholder="Password" id="pass" required>
+                </div>
+                <div class="data">
+                    {{!-- <label>Password</label> --}}
+                    <input type="password" placeholder="Confirm password" id="confirm" required>
+                </div>
 
-            <a href="#" class="button fit" style="margin-top: 10px;margin-bottom: 10px;"
-                onclick="register()">Register</a>
-            <div class="signup-link">
-                Alredy a member? <a href="/signin">Sign in here</a></div>
-        </form>
+                <a href="#" class="button fit" style="margin-top: 10px;margin-bottom: 10px;"
+                    onclick="register()">Register</a>
+                <div class="signup-link">
+                    Alredy a member? <a href="/signin">Sign in here</a></div>
+            </form>
+        </div>
     </div>
 </div>
+
+<!-- Scripts -->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/jquery.scrolly.min.js"></script>
+<script src="assets/js/jquery.scrollex.min.js"></script>
+<script src="assets/js/browser.min.js"></script>
+<script src="assets/js/breakpoints.min.js"></script>
+<script src="assets/js/util.js"></script>
+<script src="assets/js/main.js"></script>
 <script>
     function register() {
         var register = {
@@ -47,13 +58,13 @@
 
                 toastr.error('Paswords missmatch', 'Error:')
             } else {
-            if (Http.status == 406) {
+                if (Http.status == 406) {
 
-                toastr.error('Email alredy in use', 'Error:')
-            } else {
-                //TODO: redireccionar
+                    toastr.error('Email alredy in use', 'Error:')
+                } else {
+                    //TODO: redireccionar
+                }
             }
+
         }
-        
-    }
 </script>
