@@ -48,11 +48,11 @@
 
         }
         console.log(register)
-        const url = process.env.URL_BACK;
+        const url = "{{{URL_BACK}}}";
         const Http = new XMLHttpRequest();
-        Http.open('POST', url);
+        Http.open('POST', url+"/register");
         Http.setRequestHeader('Content-Type', 'application/json');
-        Http.send(register);
+        Http.send(JSON.stringify(register));
         Http.onload = () => {
             switch (Http.status){
                 case 400:
@@ -65,11 +65,12 @@
                     toastr.error('Missing data', 'Error:')
                     break
                 case 200:
-                    //TODO: redireccionar
+                    window.location.href = "/"//TODO: Redireccionar a la pagina de los que tienen sesion iniciada
                     break
                 default:
                     toastr.error('Unknown', 'Error:')
                 break
             }
         }
+    }
 </script>
