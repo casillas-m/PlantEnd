@@ -47,7 +47,7 @@
             confirm: document.getElementById("confirm").value,
 
         }
-        console.log(register)
+        //console.log(register)
         const url = "{{{URL_BACK}}}";
         const Http = new XMLHttpRequest();
         Http.open('POST', url+"/register");
@@ -65,6 +65,7 @@
                     toastr.error('Missing data', 'Error:')
                     break
                 case 200:
+                    localStorage.setItem("token",JSON.parse(Http.response).token)
                     window.location.href = "/"//TODO: Redireccionar a la pagina de los que tienen sesion iniciada
                     break
                 default:
