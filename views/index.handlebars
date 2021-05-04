@@ -1,33 +1,9 @@
 <!-- Wrapper -->
 <div id="wrapper">
 
-    <!-- Header -->
-    <header id="header" class="alt">
-        {{!-- Div de sesión iniciada --}}
-        <div id="header_name" style="margin-left: 13px;">
-            {{!-- Welcome! Martín C. --}}
-        </div>
-        <nav>
-            <a href="#menu">Menu</a>
-        </nav>
-    </header>
-
-    <!-- Menu -->
-    <nav id="menu">
-        <ul class="links">
-            <li><a href="/">Home</a></li>
-            <li><a href="landing.html">Landing</a></li>
-            <li><a href="generic.html">Generic</a></li>
-            <li><a href="elements.html">Elements</a></li>
-        </ul>
-        <ul class="actions stacked">
-            {{!-- <li><a href="#" class="button primary fit">Get Started</a></li> --}}
-            <li><a href="/signin" class="button primary fit">Log In</a></li>
-        </ul>
-    </nav>
-
     <!-- Banner -->
-    <section id="banner" class="major" style="background-image: url('https://p4.wallpaperbetter.com/wallpaper/284/713/172/background-macro-minimalistic-nature-wallpaper-preview.jpg');">
+    <section id="banner" class="major"
+        style="background-image: url('https://p4.wallpaperbetter.com/wallpaper/284/713/172/background-macro-minimalistic-nature-wallpaper-preview.jpg');">
         <div class="inner">
             <header class="major">
                 <h1>PlantEnd</h1>
@@ -79,7 +55,8 @@
                 </span>
                 <header class="major">
                     <h3><a href="/signin" class="link">Make It a Business</a></h3>
-                    <p>With all the technology, earn money is easier than ever, you can start a plant shop or become an expert gardener.</p>
+                    <p>With all the technology, earn money is easier than ever, you can start a plant shop or become an
+                        expert gardener.</p>
                 </header>
             </article>
         </section>
@@ -90,7 +67,8 @@
                 <header class="major">
                     <h2>Keep It Simple</h2>
                 </header>
-                <p>An intuitive and easy to use platform that give you the knowledge and control you need. Save time and effort while you are confident that all your plants have the best possible growing conditions.</p>
+                <p>An intuitive and easy to use platform that give you the knowledge and control you need. Save time and
+                    effort while you are confident that all your plants have the best possible growing conditions.</p>
                 <ul class="actions">
                     <li><a href="/signin" class="button next">Log In</a></li>
                 </ul>
@@ -99,20 +77,7 @@
 
     </div>
 
-    <!-- Footer -->
-    <footer id="footer">
-        <div class="inner">
-            <ul class="icons">
-                <li><a href="https://github.com/casillas-m/PlantEnd" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
-                <li><a href="https://www.linkedin.com/in/mart%C3%ADn-casillas-534327bb/" class="icon brands alt fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
-                <li><a href="https://www.linkedin.com/in/michel-maris-mora-76471b157/" class="icon brands alt fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
-            </ul>
-            <ul class="copyright">
-                <li>PlantEnd</li>
-                <li>Design template: <a href="https://html5up.net">HTML5 UP</a></li>
-            </ul>
-        </div>
-    </footer>
+    {{{footer}}}
 
 </div>
 
@@ -127,11 +92,11 @@
 {{!-- JWT Only decode --}}
 <script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.js"></script>
 <script>
-    if(localStorage.getItem("token")!=null){
-        try{
+    if (localStorage.getItem("token") != null) {
+        try {
             let jwt_decoded = jwt_decode(localStorage.getItem("token"));
-            document.querySelector("#header_name").innerHTML=`Welcome! ${jwt_decoded.name}`
-        }catch (e){
+            document.querySelector("#header_name").innerHTML = `Welcome! ${jwt_decoded.name}`
+        } catch (e) {
             console.log("JWT Error")
         }
     }

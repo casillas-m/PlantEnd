@@ -29,6 +29,34 @@
 </head>
 
 <body class="is-preload">
+    <!-- Header -->
+    <header id="header" class="alt">
+        {{!-- Div de sesión iniciada --}}
+        <div id="header_name" style="margin-left: 13px;">
+            {{!-- Welcome! Martín C. --}}
+        </div>
+        <nav>
+            <a href="#menu">Menu</a>
+        </nav>
+    </header>
+
+    <!-- Menu Tambien cambiar en el layout para signup/signin-       -->
+    <nav id="menu">
+        <ul class="links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/myplants">My Plants</a></li>
+            <li><a href="generic.html">Profile</a></li>
+            {{!-- TODO: Profile
+            ----------------------------------------------------------------------------------------------------------------------------}}
+            {{!-- TODO: About
+            ----------------------------------------------------------------------------------------------------------------------------}}
+            <li><a href="elements.html">About</a></li>
+        </ul>
+        <ul class="actions stacked">
+            {{!-- <li><a href="#" class="button primary fit">Get Started</a></li> --}}
+            <li><a href="/signin" class="button primary fit">Log In</a></li>
+        </ul>
+    </nav>
     {{{body}}}
 </body>
 

@@ -1,0 +1,83 @@
+<!-- Wrapper -->
+<div id="wrapper">
+
+    <!-- Banner -->
+    <!-- Note: The "styleN" class below should match that of the header element. -->
+    <section id="banner" class="style2">
+        <div class="inner">
+            <span class="image">
+                <img src="images/pic07.jpg" alt="" />
+            </span>
+            <header class="major">
+                <h1>My Plants</h1>
+            </header>
+            <div class="content">
+                <p>Here you can find all the plants that you have previously added.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main -->
+    <div id="main">
+
+        <!-- One -->
+        <section id="one">
+            <div class="inner">
+                <header class="major">
+                    <h2>A new one? Sure!</h2>
+                </header>
+                <p>You can manually add all the information for the new plant or let our system collect as much
+                    information as possible using the name or just a photo.</p>
+                <ul class="actions">
+                    <li><a href="" class="button next">Add plant</a></li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Lista de plantas -->
+        <section id="two" class="spotlights">
+            {{#each plants}}
+            <section>
+                <a href="generic.html" class="image">
+                    <img src="{{{this.img_url}}}" alt="" data-position="center center" />
+                </a>
+                <div class="content">
+                    <div class="inner">
+                        <header class="major">
+                            <h3>{{this.plant_name}}</h3>
+                        </header>
+                        <p>Humidity needed: {{this.hum_needed}}</p>
+                        <p>Light needed: {{this.light_needed}}</p>
+                        <ul class="actions">
+                            <li><a href="generic.html" class="button">Learn more</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            {{/each}}
+        </section>
+
+    </div>
+    {{{footer}}}
+</div>
+
+<!-- Scripts -->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/jquery.scrolly.min.js"></script>
+<script src="assets/js/jquery.scrollex.min.js"></script>
+<script src="assets/js/browser.min.js"></script>
+<script src="assets/js/breakpoints.min.js"></script>
+<script src="assets/js/util.js"></script>
+<script src="assets/js/main.js"></script>
+{{!-- JWT Only decode --}}
+<script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.js"></script>
+<script>
+    if (localStorage.getItem("token") != null) {
+        try {
+            let jwt_decoded = jwt_decode(localStorage.getItem("token"));
+            document.querySelector("#header_name").innerHTML = `${jwt_decoded.name}'s plants`
+        } catch (e) {
+            console.log("JWT Error")
+        }
+    }
+</script>
