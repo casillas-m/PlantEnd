@@ -40,6 +40,7 @@
 <script src="assets/js/main.js"></script>
 <script>
     function register() {
+        document.querySelector("#spinner").removeAttribute("style")
         let register = {
             name: document.getElementById("name").value,
             email: document.getElementById("email").value,
@@ -53,6 +54,7 @@
         Http.setRequestHeader('Content-Type', 'application/json');
         Http.send(JSON.stringify(register));
         Http.onload = () => {
+            document.querySelector("#spinner").setAttribute("style","display:none")
             switch (Http.status){
                 case 400:
                     toastr.error('Paswords missmatch', 'Error:')

@@ -4342,3 +4342,14 @@ div.mainlogin textarea:focus {
 	border-color: #9bf1ff;
 	box-shadow: 0 0 0 2px #9bf1ff;
 }
+
+
+.se-pre-con {
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	z-index: 9999;
+	background: url(/images/gato.gif) center no-repeat rgba(255, 255, 255, 0.411);
+}
