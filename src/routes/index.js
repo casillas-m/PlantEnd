@@ -34,6 +34,7 @@ router.route("/").get((req, res) => {
 
 router.route("/signin").get((req, res) => {
     res.render("signin", { layout: "mainlogin.handlebars", URL_BACK })
+    
 })
 
 router.route("/signup").get((req, res) => {
