@@ -1,0 +1,65 @@
+<div id="wrapper">
+    <div id="main">
+        <section>
+            <div class="inner">
+                <h3>Form</h3>
+                <p>Do you have a photo or scientific name? Try the autocomplete feature.</p>
+                <form method="post" action="#">
+                    <div class="row gtr-uniform">
+                        <div class="col-6 col-12-xsmall">
+                            <input type="text" name="demo-name" id="demo-name" value="" placeholder="Scientific name" />
+                        </div>
+                        <div class="col-6 col-12-xsmall" style="display: flex;">
+                            <a href="#" class="button icon solid fa-upload">Photo</a>
+                            <input type="text" name="demo-name" id="demo-name" value="" placeholder="Photo path"
+                                style="display:inline; width: 100%; margin-left:5px" disabled />
+                        </div>
+                        <!-- Break -->
+                        <div class="col-4 col-12-xsmall">
+                            <input type="text" name="demo-name" id="demo-name" value="" placeholder="Friendly name" />
+                        </div>
+                        <div class="col-4 col-12-xsmall">
+                            <input type="text" name="demo-name" id="demo-name" value="" placeholder="Light needed" />
+                        </div>
+                        <div class="col-4 col-12-xsmall">
+                            <input type="text" name="demo-name" id="demo-name" value="" placeholder="Humidity needed" />
+                        </div>
+                        <!-- Break -->
+                        <div class="col-4 col-12-small">
+                            <input type="checkbox" id="enpoint_check" name="demo-copy" onclick="endpoint()" >
+                            <label for="enpoint_check">Automatic watering</label>
+                        </div>
+                        <div class="col-8 col-12-xsmall">
+                            <input id="endpoint_in"type="text" name="demo-name"  value="" placeholder="Endpoint URL" disabled/>
+                        </div>
+                        <!-- Break -->
+                        <div class="col-12">
+                            <ul class="actions">
+                                <li><input type="submit" value="Autocomplete" class="primary" /></li>
+                                <li><input type="reset" value="Done" /></li>
+                            </ul>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </div>
+    {{{footer}}}
+</div>
+
+<script>
+    if (localStorage.getItem("token") != null) {
+        try {
+            let jwt_decoded = jwt_decode(localStorage.getItem("token"));
+            document.querySelector("#header_name").innerHTML = `${jwt_decoded.name}'s new plant!`
+        } catch (e) {
+            console.log("JWT Error")
+            console.log(e)
+        }
+    }
+
+    function endpoint(){
+        if(document.querySelector("#enpoint_check").checked)document.querySelector("#endpoint_in").removeAttribute("disabled")
+        else document.querySelector("#endpoint_in").setAttribute("disabled","")
+    }
+</script>

@@ -26,6 +26,8 @@
     <meta name="msapplication-TileImage" content="images/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
     <title>PlantEnd</title>
+    {{!-- JWT Only decode --}}
+    <script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.js"></script>
 </head>
 
 <body class="is-preload">
@@ -55,18 +57,27 @@
         <ul class="actions stacked">
             {{!-- <li><a href="#" class="button primary fit">Get Started</a></li> --}}
             <li id="signin"><a href="/signin" class="button primary fit">Sign in</a></li>
-            <li id="signout" style="display: none;"><a href="/" class="button primary fit" onclick="signOut()">Sign out</a></li>
+            <li id="signout" style="display: none;"><a href="/" class="button primary fit" onclick="signOut()">Sign
+                    out</a></li>
         </ul>
     </nav>
     {{{body}}}
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.scrolly.min.js"></script>
+    <script src="assets/js/jquery.scrollex.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
     <script>
-        if(localStorage.getItem('token')){
+        if (localStorage.getItem('token')) {
             document.getElementById("signout").removeAttribute('style')
-            document.getElementById("signin").setAttribute('style','display:none')
+            document.getElementById("signin").setAttribute('style', 'display:none')
         }
-        function signOut(){
+        function signOut() {
             localStorage.clear()
-            document.cookie.split(";").forEach(function(c) { document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); });
+            document.cookie.split(";").forEach(function (c) { document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); });
         }
     </script>
 </body>
