@@ -21,10 +21,9 @@ let footer = `
     </footer>
 `
 let URL_BACK = process.env.URL_BACK
-let URL_PLANTS = process.env.URL_PLANTS
 
-let auth = (req, res, next) => { //Middleware de autenticación
-    if(req.cookies.token)next();
+let auth = (req, res, next) => { //Verificar existencia de token
+    if (req.cookies.token) next();
     else res.redirect('/signin')
 }
 
@@ -41,12 +40,10 @@ router.route("/signup").get((req, res) => {
 })
 
 router.route("/myplants").get(auth, (req, res) => {
-    let correo = jwt.decode(req.cookies.token).email
-
     const options = {
         method: 'GET',
-        url: URL_PLANTS,
-        qs: { email: correo }
+        url: URL_BACK + "/myplants",
+        qs: { token: req.cookies.token }
     };
 
     request(options, function (error, response, body) {
