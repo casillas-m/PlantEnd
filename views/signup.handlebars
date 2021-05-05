@@ -65,6 +65,7 @@
                     break
                 case 200:
                     localStorage.setItem("token",JSON.parse(Http.response).token)
+                    document.cookie = `token=${JSON.parse(Http.response).token}; path=/`
                     window.location.href = "/"//TODO: Redireccionar a la pagina de los que tienen sesion iniciada
                     break
                 default:

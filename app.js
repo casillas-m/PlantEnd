@@ -2,6 +2,7 @@
 const express = require('express')
 const cors = require('cors')
 const handlebars = require('express-handlebars');
+const cookieParser = require("cookie-parser");
 //require('dotenv').config();
 
 // importamos el router
@@ -19,6 +20,7 @@ const HOST = process.env.HOST || "0.0.0.0"
 
 // configuraciones para nuestro server
 app.use(json())
+app.use(cookieParser())
 app.use(urlencoded({ extended: false }))
 const corsOptions = { origin: '*', optionsSuccessStatus: 200 }
 app.use(cors(corsOptions))
