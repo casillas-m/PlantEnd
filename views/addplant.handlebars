@@ -7,36 +7,40 @@
                 <form method="post" action="#">
                     <div class="row gtr-uniform">
                         <div class="col-6 col-12-xsmall">
-                            <input type="text" name="demo-name" id="demo-name" value="" placeholder="Scientific name" />
+                            <input type="text" name="demo-name" id="sci_name" value="" placeholder="Scientific name" />
                         </div>
                         <div class="col-6 col-12-xsmall" style="display: flex;">
-                            <a href="#" class="button icon solid fa-upload">Photo</a>
-                            <input type="text" name="demo-name" id="demo-name" value="" placeholder="Photo path"
-                                style="display:inline; width: 100%; margin-left:5px" disabled />
+                            <label for="file_path" class="button icon solid fa-upload">Photo</label>
+                            <input type="file" name="file_path" id="file_path" value="" placeholder="Photo path"
+                                style="display:none; width: 100%; margin-left:5px;" />
+                            <input type="text" name="" id="file_show" value="" placeholder="Photo path"
+                                style="display:inline; width: 100%; margin-left:5px;" disabled />
+                            <input type="text" id="file_url" style="display:none" />
                         </div>
                         <!-- Break -->
                         <div class="col-4 col-12-xsmall">
-                            <input type="text" name="demo-name" id="demo-name" value="" placeholder="Friendly name" />
+                            <input type="text" name="demo-name" id="common_name" value="" placeholder="Friendly name" />
                         </div>
                         <div class="col-4 col-12-xsmall">
-                            <input type="text" name="demo-name" id="demo-name" value="" placeholder="Light needed" />
+                            <input type="text" name="demo-name" id="light_needed" value="" placeholder="Light needed" />
                         </div>
                         <div class="col-4 col-12-xsmall">
-                            <input type="text" name="demo-name" id="demo-name" value="" placeholder="Humidity needed" />
+                            <input type="text" name="demo-name" id="hum_needed" value=""
+                                placeholder="Humidity needed" />
                         </div>
                         <!-- Break -->
                         <div class="col-4 col-12-small">
-                            <input type="checkbox" id="enpoint_check" name="demo-copy" onclick="endpoint()" >
+                            <input type="checkbox" id="enpoint_check" name="demo-copy" onclick="endpoint()">
                             <label for="enpoint_check">Automatic watering</label>
                         </div>
                         <div class="col-8 col-12-xsmall">
-                            <input id="endpoint_in"type="text" name="demo-name"  value="" placeholder="Endpoint URL" disabled/>
+                            <input type="text" name="demo-name" value="" id="endpoint_iot" placeholder="Endpoint URL"
+                                disabled />
                         </div>
                         <!-- Break -->
                         <div class="col-12">
                             <ul class="actions">
-                                <li><input type="submit" value="Autocomplete" class="primary" /></li>
-                                <li><input type="reset" value="Done" /></li>
+                                <li><a class="button primary" onclick="done()">Done</a></li>
                             </ul>
                         </div>
                     </div>
@@ -58,8 +62,69 @@
         }
     }
 
-    function endpoint(){
-        if(document.querySelector("#enpoint_check").checked)document.querySelector("#endpoint_in").removeAttribute("disabled")
-        else document.querySelector("#endpoint_in").setAttribute("disabled","")
+    function endpoint() {
+        if (document.querySelector("#enpoint_check").checked) document.querySelector("#endpoint_in").removeAttribute("disabled")
+        else document.querySelector("#endpoint_in").setAttribute("disabled", "")
+    }
+
+    function file(event) {
+        document.querySelector("#spinner").removeAttribute("style")
+
+        document.querySelector("#file_show").value = document.querySelector("#file_path").value.split('\\').pop()
+        const files = event.target.files
+        const formData = new FormData()
+        formData.append('myFile', files[0])
+
+        fetch('{{{URL_BACK}}}/image', {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => response.json())
+            .then(data => {
+                //console.log(data.path)
+                document.querySelector("#spinner").setAttribute("style", "display:none")
+                document.querySelector("#sci_name").value = data.name
+                document.querySelector("#sci_name").setAttribute("disabled", "")
+                document.querySelector("#file_url").value = data.path
+            })
+            .catch(error => {
+                console.error(error)
+            })
+    }
+    document.querySelector('#file_path').addEventListener('change', event => {
+        file(event)
+    })
+
+    function done() {
+        document.querySelector("#spinner").removeAttribute("style")
+        let forma = {
+            token: localStorage.getItem("token"),
+            plant_name: document.querySelector("#sci_name").value,
+            img_url: document.querySelector("#file_url").value,
+            common_name: document.querySelector("#common_name").value,
+            light_needed: document.querySelector("#light_needed").value,
+            hum_needed: document.querySelector("#hum_needed").value,
+            endpoint_iot: document.querySelector("#endpoint_iot").value,
+        }
+        fetch('{{{URL_BACK}}}/plants', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(forma)
+        })
+            .then(response => {
+                document.querySelector("#spinner").setAttribute("style", "display:none")
+                if(response.status==200)return response
+                else{
+                    if(response.status==400)toastr.error('Missing Information', 'Error:')
+                    if(response.status==401)toastr.error('Invalid JWT', 'Error:')
+                    throw "400s error"
+                }
+            })
+            .then(data => {
+                toastr.success('Plant added', 'Success:')
+            })
+            .catch(error => {
+                console.log(error)
+            })
     }
 </script>

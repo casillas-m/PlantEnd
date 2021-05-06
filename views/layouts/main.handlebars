@@ -25,12 +25,14 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="images/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css"/>
     <title>PlantEnd</title>
     {{!-- JWT Only decode --}}
     <script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.js"></script>
 </head>
 
 <body class="is-preload">
+    <div id="spinner" class="se-pre-con" style="display: none;"></div>
     <!-- Header -->
     <header id="header" class="alt">
         {{!-- Div de sesión iniciada --}}
@@ -63,6 +65,9 @@
     </nav>
     {{{body}}}
     <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/js/jquery.scrolly.min.js"></script>
     <script src="assets/js/jquery.scrollex.min.js"></script>
