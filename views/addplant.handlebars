@@ -33,9 +33,17 @@
                             <input type="checkbox" id="enpoint_check" name="demo-copy" onclick="endpoint()">
                             <label for="enpoint_check">Automatic watering</label>
                         </div>
-                        <div class="col-8 col-12-xsmall">
+                        <div class="col-4 col-12-xsmall">
                             <input type="text" name="demo-name" value="" id="endpoint_iot" placeholder="Endpoint URL"
                                 disabled />
+                        </div>
+                        <div class="col-4 col-12-xsmall">
+                            <select name="" id="soil">
+                                <option value="Silt Soil">Silt Soil</option>
+                                <option value="Peat Soil">Peat Soil</option>
+                                <option value="Clay Soil">Clay Soil</option>
+                                <option value="Sandy soil">Sandy soil</option>
+                            </select>
                         </div>
                         <!-- Break -->
                         <div class="col-12">
@@ -112,8 +120,8 @@
                 }
             })
             .then(data => {
-                document.querySelector("#light_needed").value=data.light
-                document.querySelector("#hum_needed").value=data.hum
+                document.querySelector("#light_needed").value = data.light
+                document.querySelector("#hum_needed").value = data.hum
             })
             .catch(error => {
                 console.log(error)
@@ -130,6 +138,7 @@
             light_needed: document.querySelector("#light_needed").value,
             hum_needed: document.querySelector("#hum_needed").value,
             endpoint_iot: document.querySelector("#endpoint_iot").value,
+            soil: document.querySelector("#soil").value,
         }
         fetch('{{{URL_BACK}}}/plants', {
             method: 'POST',
@@ -138,7 +147,7 @@
         })
             .then(response => {
                 document.querySelector("#spinner").setAttribute("style", "display:none")
-                if (response.status == 200) return response.json()
+                if (response.status == 200) return response
                 else {
                     if (response.status == 400) toastr.error('Missing Information', 'Error:')
                     if (response.status == 401) toastr.error('Invalid JWT', 'Error:')

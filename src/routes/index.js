@@ -52,7 +52,7 @@ router.route("/myplants").get(auth, (req, res) => {
     });
 })
 
-router.route("/addplant").get((req, res) => {
+router.route("/addplant").get(auth,(req, res) => {
     res.render("addplant", { URL_BACK, footer })
 })
 
