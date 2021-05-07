@@ -48,7 +48,14 @@ router.route("/myplants").get(auth, (req, res) => {
 
     request(options, function (error, response, body) {
         if (error) throw new Error(error);
-        res.render("myplants", { URL_BACK: process.env.URL_BACK, plants: JSON.parse(body), footer })
+        let plants = JSON.parse(body)
+        plants.forEach(o => {
+            if(o.light_needed>80000)o.light="Strong direct sunlight"
+            else if(o.light_needed>32000)o.light="Direct sunlight"
+            else if(o.light_needed>10000)o.light="Daylight, not direct sun"
+            else o.light="Interior"
+        });
+        res.render("myplants", { URL_BACK: process.env.URL_BACK, plants, footer })
     });
 })
 
