@@ -40,6 +40,7 @@
                         <!-- Break -->
                         <div class="col-12">
                             <ul class="actions">
+                                <li><a class="button" onclick="auto()">Autocomplete</a></li>
                                 <li><a class="button primary" onclick="done()">Done</a></li>
                             </ul>
                         </div>
@@ -95,6 +96,30 @@
         file(event)
     })
 
+    function auto() {
+        document.querySelector("#spinner").removeAttribute("style")
+
+        fetch(`{{{URL_BACK}}}/plants?token=${localStorage.getItem("token")}&plant=${document.querySelector("#sci_name").value}`, {
+            method: 'GET'
+        })
+            .then(response => {
+                document.querySelector("#spinner").setAttribute("style", "display:none")
+                if (response.status == 200) return response.json()
+                else {
+                    if (response.status == 400) toastr.error('Missing Information', 'Error:')
+                    if (response.status == 401) toastr.error('Invalid JWT', 'Error:')
+                    throw "400s error"
+                }
+            })
+            .then(data => {
+                document.querySelector("#light_needed").value=data.light
+                document.querySelector("#hum_needed").value=data.hum
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }
+
     function done() {
         document.querySelector("#spinner").removeAttribute("style")
         let forma = {
@@ -113,10 +138,10 @@
         })
             .then(response => {
                 document.querySelector("#spinner").setAttribute("style", "display:none")
-                if(response.status==200)return response
-                else{
-                    if(response.status==400)toastr.error('Missing Information', 'Error:')
-                    if(response.status==401)toastr.error('Invalid JWT', 'Error:')
+                if (response.status == 200) return response.json()
+                else {
+                    if (response.status == 400) toastr.error('Missing Information', 'Error:')
+                    if (response.status == 401) toastr.error('Invalid JWT', 'Error:')
                     throw "400s error"
                 }
             })
