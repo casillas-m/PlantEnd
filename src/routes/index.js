@@ -54,6 +54,23 @@ router.route("/myplants").get(auth, (req, res) => {
             else if(o.light_needed>32000)o.light="Direct sunlight"
             else if(o.light_needed>10000)o.light="Daylight, not direct sun"
             else o.light="Interior"
+
+            //1-10
+            if(o.hum_needed>8)o.hum_needed_text="Subaquatic"
+            else if(o.hum_needed>6)o.hum_needed_text="Water loving"
+            else if(o.hum_needed>4)o.hum_needed_text="Dry loving"
+            else o.hum_needed_text="Xerophytic"
+
+            if(o.hum_needed>8)o.freq_text = "(if not submerged)"
+            else o.freq_text = ""
+
+            let soil_factor;
+            if(o.soil=="Peat Soil")soil_factor=1
+            else if(o.soil=="Silt Soil")soil_factor=1.2
+            else if(o.soil=="Clay Soil")soil_factor=1.6
+            else soil_factor=2 //Sandy
+
+            o.freq = (soil_factor*o.hum_needed*(1/5)*o.light_needed*(1.4/100000)).toFixed(2)
         });
         res.render("myplants", { URL_BACK: process.env.URL_BACK, plants, footer })
     });
