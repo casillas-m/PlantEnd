@@ -20,7 +20,6 @@
             body: JSON.stringify(forma)
         })
             .then(response => {
-                document.querySelector("#spinner").setAttribute("style", "display:none")
                 if (response.status == 200) return response
                 else {
                     if (response.status == 400) toastr.error('Missing Information', 'Error:')
@@ -110,7 +109,7 @@
         <section id="two" class="spotlights">
             {{#each plants}}
             <section>
-                <a href="generic.html" class="image">
+                <a  class="image">
                     <img src="{{{this.img_url}}}" alt="" data-position="center center" />
                 </a>
                 <div class="content">
