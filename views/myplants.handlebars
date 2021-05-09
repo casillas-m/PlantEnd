@@ -1,6 +1,6 @@
 <script>
     var x = [];
-    function timer(index, freq, plant_id, soil, endpoint_iot, common_name) {
+    function timer(index, freq, plant_id, soil, endpoint_iot, common_name,water) {
         let ms = 24 * 60 * 60 * 1000 / freq
         // Set the date we're counting down to
         clearInterval(x[index]);
@@ -54,7 +54,8 @@
             countDownDate: countDownDate,
             plant_id: plant_id,
             endpoint_iot: endpoint_iot,
-            common_name: common_name
+            common_name: common_name,
+            water: water
         }
 
         fetch('{{{URL_BACK}}}/timers', {
@@ -154,7 +155,7 @@
                         <p style="display: inline;">Watering required in: </p>
                         <div style="display: inline;" id="timer{{@index}}">Now</div>
                         <ul class="actions">
-                            <li><a onclick="timer({{@index}}, {{this.freq}}, '{{this.plant_id}}', '{{this.soil}}', '{{this.endpoint_iot}}', '{{this.common_name}}')"
+                            <li><a onclick="timer({{@index}}, {{this.freq}}, '{{this.plant_id}}', '{{this.soil}}', '{{this.endpoint_iot}}', '{{this.common_name}}', '{{this.water}}')"
                                     class="button">Freshly watered</a></li>
                         </ul>
                         <script>
