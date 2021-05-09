@@ -1,6 +1,6 @@
 <script>
     var x = [];
-    function timer(index, freq, plant_id, soil, countDownDate) {
+    function timer(index, freq, plant_id, soil, endpoint_iot, common_name) {
         let ms = 24 * 60 * 60 * 1000 / freq
         // Set the date we're counting down to
         clearInterval(x[index]);
@@ -33,7 +33,7 @@
                     var now = new Date().getTime();
                     var distance = countDownDate - now;
                     if (distance < 0) {
-                        clearInterval(x);
+                        clearInterval(x[index]);
                         document.getElementById("timer" + index).innerHTML = "Now";
                     } else {
                         var days = Math.floor(distance / (1000 * 60 * 60 * 24));
@@ -47,6 +47,35 @@
             .catch(error => {
                 console.log(error)
             })
+        
+        //Timer backend
+        let obj_timer = {//"token, endpoint_iot, common_name, countDownDate, plant_id"
+            token: localStorage.getItem("token"),
+            countDownDate: countDownDate,
+            plant_id: plant_id,
+            endpoint_iot: endpoint_iot,
+            common_name: common_name
+        }
+
+        fetch('{{{URL_BACK}}}/timers', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(obj_timer)
+        })
+            .then(response => {
+                if (response.status == 200) return response
+                else {
+                    if (response.status == 400) toastr.error('Missing Information BACK', 'Error:')
+                    if (response.status == 401) toastr.error('Invalid JWT BACK', 'Error:')
+                    throw "400s error BACK"
+                }
+            })
+            .then(data => {
+                toastr.success('Timer updated BACK', 'Success:')
+            })
+            .catch(error => {
+                console.log(error)
+            })
     }
 
     function reload_timer(index, countDownDate) {
@@ -55,7 +84,7 @@
                 var now = new Date().getTime();
                 var distance = countDownDate - now;
                 if (distance < 0) {
-                    clearInterval(x);
+                    clearInterval(x[index]);
                     document.getElementById("timer" + index).innerHTML = "Now";
                 } else {
                     var days = Math.floor(distance / (1000 * 60 * 60 * 24));
@@ -109,7 +138,7 @@
         <section id="two" class="spotlights">
             {{#each plants}}
             <section>
-                <a  class="image">
+                <a class="image">
                     <img src="{{{this.img_url}}}" alt="" data-position="center center" />
                 </a>
                 <div class="content">
@@ -125,11 +154,11 @@
                         <p style="display: inline;">Watering required in: </p>
                         <div style="display: inline;" id="timer{{@index}}">Now</div>
                         <ul class="actions">
-                            <li><a onclick="timer({{@index}}, {{this.freq}}, '{{this.plant_id}}', '{{this.soil}}')"
+                            <li><a onclick="timer({{@index}}, {{this.freq}}, '{{this.plant_id}}', '{{this.soil}}', '{{this.endpoint_iot}}', '{{this.common_name}}')"
                                     class="button">Freshly watered</a></li>
                         </ul>
                         <script>
-                            reload_timer({{@index}},{{this.countDownDate}})
+                            reload_timer({{@index}}, {{this.countDownDate}})
                         </script>
                     </div>
                 </div>
