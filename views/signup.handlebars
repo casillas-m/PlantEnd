@@ -13,6 +13,10 @@
                     <input type="email" placeholder="Email" id="email" required>
                 </div>
                 <div class="data">
+                    {{!-- <label>Email or Phone</label> --}}
+                    <input type="text" placeholder="Phone number" id="phone" required>
+                </div>
+                <div class="data">
                     {{!-- <label>Password</label> --}}
                     <input type="password" placeholder="Password" id="pass" required>
                 </div>
@@ -46,6 +50,7 @@
             email: document.getElementById("email").value,
             pass: document.getElementById("pass").value,
             confirm: document.getElementById("confirm").value,
+            phone: document.getElementById("phone").value
         }
         //console.log(register)
         const url = "{{{URL_BACK}}}";
