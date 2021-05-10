@@ -57,7 +57,9 @@
             common_name: common_name,
             water: water,
             hum_needed: hum_needed,
-            light_needed: light_needed
+            light_needed: light_needed,
+            freq: freq,
+            soil:soil
         }
 
         fetch('{{{URL_BACK}}}/timers', {
@@ -157,8 +159,7 @@
                         <p style="display: inline;">Watering required in: </p>
                         <div style="display: inline;" id="timer{{@index}}">Now</div>
                         <ul class="actions">
-                            <li><a onclick="timer({{@index}}, {{this.freq}}, '{{this.plant_id}}', '{{this.soil}}', '{{this.endpoint_iot}}', '{{this.common_name}}', '{{this.water}}, '{{this.hum_needed}}, '{{this.light_needed}}')"
-                                    class="button">Freshly watered</a></li>
+                            <li><a onclick="timer({{@index}}, {{this.freq}}, '{{this.plant_id}}', '{{this.soil}}', '{{this.endpoint_iot}}', '{{this.common_name}}', '{{this.water}}', '{{this.hum_needed}}', '{{this.light_needed}}')" class="button">Freshly watered</a></li>
                         </ul>
                         <script>
                             reload_timer({{@index}}, {{this.countDownDate}})

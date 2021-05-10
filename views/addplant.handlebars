@@ -140,7 +140,7 @@
             hum_needed: document.querySelector("#hum_needed").value,
             endpoint_iot: document.querySelector("#endpoint_iot").value,
             soil: document.querySelector("#soil").value,
-            water: document.querySelector("#enpoint_check").checked,
+            water: `${document.querySelector("#enpoint_check").checked}`,
         }
         fetch('{{{URL_BACK}}}/plants', {
             method: 'POST',
